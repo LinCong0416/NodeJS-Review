@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<select id="selAnimal">
+    <option value="cat">cat</option>
+    <option value="fish">fish</option>
+    <option value="bird">bird</option>
+</select>
+<p id="AnimalDo"></p>
+
+<script src="common.js"></script>
+<script>
+    //controller 用户操作功能
+    var whatDoesAnimalDo = {
+        //选择视图
+        start: function() {
+            this.view.start();
+        },
+        //更新视图
+        set: function(animalName) {
+            this.model.setAnimal(animalName);
+        }
+    };
+    //model 数据操作
+    whatDoesAnimalDo.model = {
+        //数据
+        animalDictionary: {
+            cat: "本猫在睡觉",
+            fish: "本鱼在洗澡",
+            bird: "本鸟在唱歌"
+        },
+        currentAnimal:null,
+        //model负责业务逻辑和数据存储
+        setAnimal: function(animalName) {
+            this.currentAnimal = this.animalDictionary[animalName] ? animalName : null;
+            this.onchange();
+        },
+        //通知视图更新显示
+        onchange: function() {
+            whatDoesAnimalDo.view.update(); //应改为观察者模式
+        },
+        //响应视图对当前状态的查询
+        getAnimalAction: function() {
+            return this.currentAnimal ? this.animalDictionary[this.currentAnimal] : "陌生人?";
+        }
+    };
+    //视图 $ 改成自己熟悉的 适合自己的
+    whatDoesAnimalDo.view = {
+        start: function(){
+            $("selAnimal").onchange = this.onchange;
+        },
+        onchange: function() {
+            whatDoesAnimalDo.set($("selAnimal").value);
+        },
+        update: function() {
+            $("AnimalDo").innerHTML = whatDoesAnimalDo.model.getAnimalAction();
+        }
+    };
+
+    window.onload = function() {
+        $("AnimalDo").innerHTML = "本猫在睡觉";
+    }
+
+    whatDoesAnimalDo.start();
+
+</script>
+</body>
+</html>

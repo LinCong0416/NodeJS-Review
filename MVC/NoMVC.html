@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <title>Document</title>
+</head>
+<body>
+<select id="selAnimal">
+    <option value="cat">cat</option>
+    <option value="fish">fish</option>
+    <option value="bird">bird</option>
+</select>
+<p id="AnimalDo"></p>
+
+<script src="common.js"></script>
+<script>
+    $("selAnimal").onchange = function() {
+    var thisAnimalDoes;
+    switch(this.value) {
+    case 'cat':
+    thisAnimalDoes = "本猫在睡觉";
+    break;
+    case 'fish':
+    thisAnimalDoes = "本鱼在洗澡";
+    break;
+    case 'bird':
+    thisAnimalDoes = "本鸟在唱歌";
+    break;
+    default:
+    thisAnimalDoes = "陌生人?";
+}
+    $("AnimalDo").innerHTML = thisAnimalDoes;
+}
+
+    window.onload = function() {
+    $("AnimalDo").innerHTML = "本猫在睡觉";
+}
+</script>
+</body>
+</html>
