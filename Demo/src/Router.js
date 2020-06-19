@@ -1,5 +1,7 @@
+
 const express = require('express');
-const router = express.Router();//可以看做是app中的子方法
+const router = express.Router();//can be seen as a submethod of app
+//all api in app can be used in router
 
 router.get('/demo',(req,res)=>{
     res.json({
